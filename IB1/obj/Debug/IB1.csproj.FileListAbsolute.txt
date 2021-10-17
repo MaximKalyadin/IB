@@ -1,0 +1,17 @@
+C:\Users\Maxim\source\repos\IB1\IB1\bin\Debug\IB1.exe.config
+C:\Users\Maxim\source\repos\IB1\IB1\bin\Debug\IB1.exe
+C:\Users\Maxim\source\repos\IB1\IB1\bin\Debug\IB1.pdb
+C:\Users\Maxim\source\repos\IB1\IB1\obj\Debug\IB1.csproj.AssemblyReference.cache
+C:\Users\Maxim\source\repos\IB1\IB1\obj\Debug\MainWindow.g.cs
+C:\Users\Maxim\source\repos\IB1\IB1\obj\Debug\App.g.cs
+C:\Users\Maxim\source\repos\IB1\IB1\obj\Debug\IB1_MarkupCompile.cache
+C:\Users\Maxim\source\repos\IB1\IB1\obj\Debug\IB1_MarkupCompile.lref
+C:\Users\Maxim\source\repos\IB1\IB1\obj\Debug\MainWindow.baml
+C:\Users\Maxim\source\repos\IB1\IB1\obj\Debug\IB1.g.resources
+C:\Users\Maxim\source\repos\IB1\IB1\obj\Debug\IB1.Properties.Resources.resources
+C:\Users\Maxim\source\repos\IB1\IB1\obj\Debug\IB1.csproj.GenerateResource.cache
+C:\Users\Maxim\source\repos\IB1\IB1\obj\Debug\IB1.csproj.CoreCompileInputs.cache
+C:\Users\Maxim\source\repos\IB1\IB1\obj\Debug\IB1.exe
+C:\Users\Maxim\source\repos\IB1\IB1\obj\Debug\IB1.pdb
+C:\Users\Maxim\source\repos\IB1\IB1\obj\Debug\Client.g.cs
+C:\Users\Maxim\source\repos\IB1\IB1\obj\Debug\Client.baml
