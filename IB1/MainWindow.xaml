@@ -6,21 +6,31 @@
         xmlns:local="clr-namespace:IB1"
         mc:Ignorable="d"
         Title="MainWindow" Height="250" Width="379.909" MinHeight="250" MinWidth="300">
+
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-        </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" HorizontalAlignment="Center" FontWeight="Bold" FontSize="25">Вход</TextBlock>
-        <TextBlock Grid.Row="1" HorizontalAlignment="Center" Margin="0 15 0 0">Логин</TextBlock>
-        <TextBox Grid.Row="2" HorizontalAlignment="Center" Width="200" Height="16"></TextBox>
-        <TextBlock HorizontalAlignment="Center" Grid.Row="3" Margin="0 15 0 0">Пароль</TextBlock>
-        <PasswordBox Grid.Row="4" HorizontalAlignment="Center" Width="200" Height="16"></PasswordBox>
-        <Button Grid.Row="5" Width="100" Height="20">Войти</Button>
+        <Menu Height="20" VerticalAlignment="Top">
+            <MenuItem Header="Справка" Click="MenuItem_Click">
+                <MenuItem Header="О программе">
+                    
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+        <Grid Margin="0 20 0 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" HorizontalAlignment="Center" FontWeight="Bold" FontSize="25">Вход</TextBlock>
+            <TextBlock Grid.Row="1" HorizontalAlignment="Center" Margin="0 15 0 0">Логин</TextBlock>
+            <TextBox x:Name="login" Grid.Row="2" HorizontalAlignment="Center" Width="200" Height="16"></TextBox>
+            <TextBlock HorizontalAlignment="Center" Grid.Row="3" Margin="0 15 0 0">Пароль</TextBlock>
+            <PasswordBox x:Name="passw" Grid.Row="4" HorizontalAlignment="Center" Width="200" Height="16"></PasswordBox>
+            <Button Grid.Row="5" Width="100" Height="20" Click="Button_Click">Войти</Button>
+        </Grid>
     </Grid>
 </Window>
