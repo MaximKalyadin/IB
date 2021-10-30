@@ -34,6 +34,9 @@ namespace IB1
             DeserializedJson();
         }
 
+        /// <summary>
+        /// Десериализация json (временного файла)
+        /// </summary>
         private void DeserializedJson()
         {
             if (File.Exists(pathEncrypt))
@@ -45,12 +48,20 @@ namespace IB1
             LoadData();
         }
 
+        /// <summary>
+        /// метод отображение списка пользователей слева
+        /// </summary>
         private void LoadData()
         {
             listbox.ItemsSource = null;
             listbox.ItemsSource = clients;
         }
 
+        /// <summary>
+        /// событие добавление нового пользователя
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(add_client.Text))
@@ -74,6 +85,11 @@ namespace IB1
             }
         }
 
+        /// <summary>
+        /// событие блокировки пользователя
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(block_client.Text))
@@ -100,6 +116,11 @@ namespace IB1
             }
         }
 
+        /// <summary>
+        /// событие наложение ограничений пользователя
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(add_restrict.Text))
@@ -126,6 +147,11 @@ namespace IB1
             }
         }
 
+        /// <summary>
+        /// событие смены пароля админа
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(old_passw.Password))
@@ -172,6 +198,10 @@ namespace IB1
 
         }
 
+        /// <summary>
+        ///  метод для вывода различного вывода сообщений об ошибках
+        /// </summary>
+        /// <param name="text">Сообщение ошибки</param>
         private void Incorrect(string text)
         {
             MessageBox.Show(text, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -180,6 +210,11 @@ namespace IB1
             confirm_passw.Password = "";
         }
 
+        /// <summary>
+        /// событие выхода из окна клиента (нажатие на кнопки выйти)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
             MainWindow mainWindow = new MainWindow();
@@ -187,6 +222,11 @@ namespace IB1
             Close();
         }
 
+        /// <summary>
+        /// событие закрытие окна админа, чтобы все дейсвия во временном файле сохранить, удалить файл и данные перенести в зашифрованный
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_Closed(object sender, EventArgs e)
         {
             string json = JsonConvert.SerializeObject(clients);

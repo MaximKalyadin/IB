@@ -35,6 +35,9 @@ namespace IB1
             CreateOrUpdateFile();
         }
 
+        /// <summary>
+        /// Шифрование и расшифрование файла. Создание временного файла после расшифрования.
+        /// </summary>
         public void CreateOrUpdateFile()
         {
 
@@ -66,6 +69,12 @@ namespace IB1
             }
         }
 
+
+        /// <summary>
+        /// Кнопка для входа в программу
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (login.Text.ToLower().Equals("admin"))
@@ -97,9 +106,18 @@ namespace IB1
                         temp = true;
                         if (string.IsNullOrEmpty(el.Password))
                         {
-                            ClientWindow client = new ClientWindow(el);
-                            client.Show();
-                            Close();
+                            if (el.IsBlock)
+                            {
+                                MessageBox.Show("Данный пользователь заблокирован", "Ошибка входа", MessageBoxButton.OK, MessageBoxImage.Error);
+                            }
+                            else
+                            {
+                                DES.EncryptFile(path, pathEncrypt);
+                                File.Delete(path);
+                                ClientWindow client = new ClientWindow(el);
+                                client.Show();
+                                Close();
+                            }
                         }
                         else if (DES.ToSHA256(passw.Password).Equals(el.Password))
                         {
@@ -109,6 +127,8 @@ namespace IB1
                             } 
                             else
                             {
+                                DES.EncryptFile(path, pathEncrypt);
+                                File.Delete(path);
                                 ClientWindow client = new ClientWindow(el);
                                 client.Show();
                                 Close();
@@ -127,6 +147,9 @@ namespace IB1
             }
         }
 
+        /// <summary>
+        /// Функция для показа своего рода ошибок
+        /// </summary>
         public void IncorrectLoginOrPassword()
         {
             IsChecked++;
@@ -143,11 +166,22 @@ namespace IB1
             }
         }
 
+
+        /// <summary>
+        /// Событие нажатие на вкладку справка->об авторе и вывод информации на экран
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Автоp: Калядин Максим ПИбд-41. Вариант: 9", "Информация", MessageBoxButton.OK , MessageBoxImage.Information);
         }
 
+        /// <summary>
+        /// Событие обработки события закрытие окна, чтобы все дейсвия во временном файле сохранить, удалить файл и данные перенести в зашифрованный
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_Closed(object sender, EventArgs e)
         {
             DES.EncryptFile(path, pathEncrypt);

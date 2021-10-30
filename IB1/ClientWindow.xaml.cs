@@ -26,6 +26,9 @@ namespace IB1
     {
         private List<Client> clients = new List<Client>();
         Client client = new Client();
+        /// <summary>
+        /// ограничение на выбор пользоателем пароля(регулярные выражения)
+        /// </summary>
         string pattern = @"([a-zA-Z0-9а-яА-Я]*[,;.-:!?]*)+";
 
         private readonly string path = @"C:\Users\Maxim\Desktop\ИБ\file.json";
@@ -38,6 +41,9 @@ namespace IB1
             this.client = client;
         }
 
+        /// <summary>
+        /// Десериализация json (временного файла)
+        /// </summary>
         private void DeserializedJson()
         {
             if (File.Exists(pathEncrypt))
@@ -48,6 +54,12 @@ namespace IB1
             }
         }
 
+
+        /// <summary>
+        /// Событие кнопки смены пароля
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             foreach (var el in clients)
@@ -133,6 +145,10 @@ namespace IB1
             }
         }
 
+        /// <summary>
+        /// метод для вывода различного вывода сообщений об ошибках
+        /// </summary>
+        /// <param name="text">Сообщение ошибки</param>
         private void Incorrect(string text)
         {
             MessageBox.Show(text, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -141,6 +157,11 @@ namespace IB1
             conf_passw.Password = "";
         }
 
+        /// <summary>
+        /// событие выхода из окна клиента (нажатие на кнопки выйти)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             MainWindow mainWindow = new MainWindow();
@@ -148,6 +169,12 @@ namespace IB1
             Close();
         }
 
+
+        /// <summary>
+        /// событие закрытие окна клиента, чтобы все дейсвия во временном файле сохранить, удалить файл и данные перенести в зашифрованный
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_Closed(object sender, EventArgs e)
         {
             string json = JsonConvert.SerializeObject(clients);
