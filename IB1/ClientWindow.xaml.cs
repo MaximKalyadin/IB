@@ -1,4 +1,5 @@
 ﻿using IB1.Models;
+using IB1.Service;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,9 @@ namespace IB1
         Client client = new Client();
         string pattern = @"([a-zA-Z0-9а-яА-Я]*[,;.-:!?]*)+";
 
+        private readonly string path = @"C:\Users\Maxim\Desktop\ИБ\file.json";
+        private readonly string pathEncrypt = @"C:\Users\Maxim\Desktop\ИБ\file.des";
+
         public ClientWindow(Client client)
         {
             InitializeComponent();
@@ -36,10 +40,9 @@ namespace IB1
 
         private void DeserializedJson()
         {
-            string path = @"C:\Users\Maxim\Desktop\ИБ\file.json";
-
-            if (File.Exists(path))
+            if (File.Exists(pathEncrypt))
             {
+                DES.DecryptFile(pathEncrypt, path);
                 string json = File.ReadAllText(path);
                 clients = JsonConvert.DeserializeObject<List<Client>>(json);
             }
@@ -66,17 +69,32 @@ namespace IB1
                     {
                         Incorrect("Введите подтврждение пароля");
                     }
-                    else if (!string.IsNullOrEmpty(new_passw.Password) && new_passw.Password.Equals(conf_passw.Password) && old_passw.Password.Equals(el.Password))
+                    else if (!string.IsNullOrEmpty(new_passw.Password) && new_passw.Password.Equals(conf_passw.Password))
                     {
                         if (el.IsLimit)
                         {
                             if (Regex.IsMatch(new_passw.Password, pattern, RegexOptions.IgnoreCase))
                             {
-                                el.Password = new_passw.Password;
-                                MessageBox.Show("Вы успешно сменили пароль", "Successfully", MessageBoxButton.OK, MessageBoxImage.None);
-                                old_passw.Password = "";
-                                new_passw.Password = "";
-                                conf_passw.Password = "";
+                                if (el.Password.Equals(""))
+                                {
+                                    el.Password = DES.ToSHA256(new_passw.Password);
+                                    MessageBox.Show("Вы успешно сменили пароль", "Successfully", MessageBoxButton.OK, MessageBoxImage.None);
+                                    old_passw.Password = "";
+                                    new_passw.Password = "";
+                                    conf_passw.Password = "";
+                                }
+                                else if (DES.ToSHA256(old_passw.Password).Equals(el.Password))
+                                {
+                                    el.Password = DES.ToSHA256(new_passw.Password);
+                                    MessageBox.Show("Вы успешно сменили пароль", "Successfully", MessageBoxButton.OK, MessageBoxImage.None);
+                                    old_passw.Password = "";
+                                    new_passw.Password = "";
+                                    conf_passw.Password = "";
+                                }
+                                else
+                                {
+                                    Incorrect("Данные не совпадают, введите все заново и не ошибайтесь");
+                                }
                             }
                             else
                             {
@@ -85,11 +103,26 @@ namespace IB1
                         }
                         else
                         {
-                            el.Password = new_passw.Password;
-                            MessageBox.Show("Вы успешно сменили пароль", "Successfully", MessageBoxButton.OK, MessageBoxImage.None);
-                            old_passw.Password = "";
-                            new_passw.Password = "";
-                            conf_passw.Password = "";
+                            if (el.Password.Equals(""))
+                            {
+                                el.Password = DES.ToSHA256(new_passw.Password);
+                                MessageBox.Show("Вы успешно сменили пароль", "Successfully", MessageBoxButton.OK, MessageBoxImage.None);
+                                old_passw.Password = "";
+                                new_passw.Password = "";
+                                conf_passw.Password = "";
+                            } 
+                            else if (DES.ToSHA256(old_passw.Password).Equals(el.Password))
+                            {
+                                el.Password = DES.ToSHA256(new_passw.Password);
+                                MessageBox.Show("Вы успешно сменили пароль", "Successfully", MessageBoxButton.OK, MessageBoxImage.None);
+                                old_passw.Password = "";
+                                new_passw.Password = "";
+                                conf_passw.Password = "";
+                            } 
+                            else
+                            {
+                                Incorrect("Данные не совпадают, введите все заново и не ошибайтесь");
+                            }
                         }
                     }
                     else
@@ -117,17 +150,15 @@ namespace IB1
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            string path = @"C:\Users\Maxim\Desktop\ИБ\file.json";
-            if (File.Exists(path))
+            string json = JsonConvert.SerializeObject(clients);
+            File.Delete(path);
+            using (StreamWriter tw = new StreamWriter(path, true))
             {
-                string json = JsonConvert.SerializeObject(clients);
-                File.Delete(path);
-                using (StreamWriter tw = new StreamWriter(path, true))
-                {
-                    tw.WriteLine(json.ToString());
-                    tw.Close();
-                }
+                tw.WriteLine(json.ToString());
+                tw.Close();
             }
+            DES.EncryptFile(path, pathEncrypt);
+            File.Delete(path);
         }
     }
 }

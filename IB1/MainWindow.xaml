@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IB1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="250" Width="379.909" MinHeight="250" MinWidth="300">
+        Title="MainWindow" Height="250" Width="379.909" MinHeight="250" MinWidth="300" Closed="Window_Closed" ResizeMode="NoResize">
 
     <Grid>
         <Menu Height="20" VerticalAlignment="Top">

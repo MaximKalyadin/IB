@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using IB1.Models;
+using IB1.Service;
 using Newtonsoft.Json;
 
 namespace IB1
@@ -25,19 +26,21 @@ namespace IB1
     {
         private int IsChecked = 0;
         private List<Client> clients = new List<Client>();
+        readonly string path = @"C:\Users\Maxim\Desktop\ИБ\file.json";
+        private readonly string pathEncrypt = @"C:\Users\Maxim\Desktop\ИБ\file.des";
 
         public MainWindow()
         {
             InitializeComponent();
-            CreateOrUpdateFileAsync();
+            CreateOrUpdateFile();
         }
 
-        public void CreateOrUpdateFileAsync()
+        public void CreateOrUpdateFile()
         {
-            string path = @"C:\Users\Maxim\Desktop\ИБ\file.json";
 
-            if (File.Exists(path))
+            if (File.Exists(pathEncrypt))
             {
+                DES.DecryptFile(pathEncrypt, path);
                 string json = File.ReadAllText(path);
                 clients = JsonConvert.DeserializeObject<List<Client>>(json);
             }
@@ -67,7 +70,13 @@ namespace IB1
         {
             if (login.Text.ToLower().Equals("admin"))
             {
-                if (clients[0].Password.Equals(passw.Password))
+                if (string.IsNullOrEmpty(clients[0].Password))
+                {
+                    AdminWindow admin = new AdminWindow();
+                    admin.Show();
+                    Close();
+                }
+                else if (DES.ToSHA256(passw.Password).Equals(clients[0].Password))
                 {
                     AdminWindow admin = new AdminWindow();
                     admin.Show();
@@ -86,7 +95,13 @@ namespace IB1
                     if (el.Name.Equals(login.Text))
                     {
                         temp = true;
-                        if (el.Password.Equals(passw.Password))
+                        if (string.IsNullOrEmpty(el.Password))
+                        {
+                            ClientWindow client = new ClientWindow(el);
+                            client.Show();
+                            Close();
+                        }
+                        else if (DES.ToSHA256(passw.Password).Equals(el.Password))
                         {
                             if (el.IsBlock)
                             {
@@ -131,6 +146,12 @@ namespace IB1
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Автоp: Калядин Максим ПИбд-41. Вариант: 9", "Информация", MessageBoxButton.OK , MessageBoxImage.Information);
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            DES.EncryptFile(path, pathEncrypt);
+            File.Delete(path);
         }
     }
 }

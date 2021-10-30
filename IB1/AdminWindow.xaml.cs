@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Newtonsoft.Json;
 using System.IO;
+using IB1.Service;
 
 namespace IB1
 {
@@ -23,6 +24,9 @@ namespace IB1
     public partial class AdminWindow : Window
     {
         private List<Client> clients = new List<Client>();
+        private readonly string path = @"C:\Users\Maxim\Desktop\ИБ\file.json";
+        private readonly string pathEncrypt = @"C:\Users\Maxim\Desktop\ИБ\file.des";
+
 
         public AdminWindow()
         {
@@ -32,10 +36,9 @@ namespace IB1
 
         private void DeserializedJson()
         {
-            string path = @"C:\Users\Maxim\Desktop\ИБ\file.json";
-
-            if (File.Exists(path))
+            if (File.Exists(pathEncrypt))
             {
+                DES.DecryptFile(pathEncrypt, path);
                 string json = File.ReadAllText(path);
                 clients = JsonConvert.DeserializeObject<List<Client>>(json);
             }
@@ -140,13 +143,27 @@ namespace IB1
             {
                 Incorrect("Введите подтврждение пароля");
             }
-            else if(!string.IsNullOrEmpty(new_passw.Password) && new_passw.Password.Equals(confirm_passw.Password) && old_passw.Password.Equals(clients[0].Password))
+            else if(!string.IsNullOrEmpty(new_passw.Password) && new_passw.Password.Equals(confirm_passw.Password))
             {
-                clients[0].Password = new_passw.Password;
-                MessageBox.Show("Вы успешно сменили пароль", "Successfully", MessageBoxButton.OK, MessageBoxImage.None);
-                old_passw.Password = "";
-                new_passw.Password = "";
-                confirm_passw.Password = "";
+                if (clients[0].Password.Equals(""))
+                {
+                    clients[0].Password = DES.ToSHA256(new_passw.Password);
+                    MessageBox.Show("Вы успешно сменили пароль", "Successfully", MessageBoxButton.OK, MessageBoxImage.None);
+                    old_passw.Password = "";
+                    new_passw.Password = "";
+                    confirm_passw.Password = "";
+                } else if (DES.ToSHA256(old_passw.Password).Equals(clients[0].Password))
+                {
+                    clients[0].Password = DES.ToSHA256(new_passw.Password);
+                    MessageBox.Show("Вы успешно сменили пароль", "Successfully", MessageBoxButton.OK, MessageBoxImage.None);
+                    old_passw.Password = "";
+                    new_passw.Password = "";
+                    confirm_passw.Password = "";
+
+                } else
+                {
+                    Incorrect("Данные не совпадают, введите все заново и не ошибайтесь");
+                }
             }
             else
             {
@@ -172,17 +189,14 @@ namespace IB1
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            string path = @"C:\Users\Maxim\Desktop\ИБ\file.json";
-            if (File.Exists(path))
+            string json = JsonConvert.SerializeObject(clients);
+            using (StreamWriter tw = new StreamWriter(path, true))
             {
-                string json = JsonConvert.SerializeObject(clients);
-                File.Delete(path);
-                using (StreamWriter tw = new StreamWriter(path, true))
-                {
-                    tw.WriteLine(json.ToString());
-                    tw.Close();
-                }
+                tw.WriteLine(json.ToString());
+                tw.Close();
             }
+            DES.EncryptFile(path, pathEncrypt);
+            File.Delete(path);
         }
     }
 }
