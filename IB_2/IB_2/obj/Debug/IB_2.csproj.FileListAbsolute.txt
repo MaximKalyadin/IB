@@ -1,0 +1,15 @@
+C:\Users\Maxim\source\repos\IB_2\IB_2\bin\Debug\IB_2.exe.config
+C:\Users\Maxim\source\repos\IB_2\IB_2\bin\Debug\IB_2.exe
+C:\Users\Maxim\source\repos\IB_2\IB_2\bin\Debug\IB_2.pdb
+C:\Users\Maxim\source\repos\IB_2\IB_2\obj\Debug\IB_2.csproj.AssemblyReference.cache
+C:\Users\Maxim\source\repos\IB_2\IB_2\obj\Debug\MainWindow.g.cs
+C:\Users\Maxim\source\repos\IB_2\IB_2\obj\Debug\App.g.cs
+C:\Users\Maxim\source\repos\IB_2\IB_2\obj\Debug\IB_2_MarkupCompile.cache
+C:\Users\Maxim\source\repos\IB_2\IB_2\obj\Debug\IB_2_MarkupCompile.lref
+C:\Users\Maxim\source\repos\IB_2\IB_2\obj\Debug\MainWindow.baml
+C:\Users\Maxim\source\repos\IB_2\IB_2\obj\Debug\IB_2.g.resources
+C:\Users\Maxim\source\repos\IB_2\IB_2\obj\Debug\IB_2.Properties.Resources.resources
+C:\Users\Maxim\source\repos\IB_2\IB_2\obj\Debug\IB_2.csproj.GenerateResource.cache
+C:\Users\Maxim\source\repos\IB_2\IB_2\obj\Debug\IB_2.csproj.CoreCompileInputs.cache
+C:\Users\Maxim\source\repos\IB_2\IB_2\obj\Debug\IB_2.exe
+C:\Users\Maxim\source\repos\IB_2\IB_2\obj\Debug\IB_2.pdb

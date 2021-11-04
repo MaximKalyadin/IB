@@ -1,0 +1,33 @@
+﻿<Window x:Class="IB_2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:IB_2"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" TextWrapping="Wrap">Калядин Максим, группа ПИбд-41, Вариант 9, Алгоритм шифрования RSA</TextBlock>
+            <TextBlock Grid.Row="1" TextWrapping="Wrap">RSA (аббревиатура от фамилий Rivest, Shamir и Adleman) — криптографический алгоритм с открытым ключом, 
+            основывающийся на вычислительной сложности задачи факторизации больших целых чисел.
+            Криптосистема RSA стала первой системой, пригодной и для шифрования, и для цифровой подписи. Алгоритм используется в большом числе криптографических приложений, 
+            включая PGP, S/MIME, TLS/SSL, IPSEC/IKE и других</TextBlock>
+        </Grid>
+        <Button Grid.Column="1" Margin="10" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Click">Зашифровать файл</Button>
+        <Button Grid.Column="1" Margin="160 10 10 10" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Click_1">Расшифровать файл</Button>
+        <Button Grid.Column="1" Margin="10 55 10 10" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Click_2">Создать ключ</Button>
+        <Button Grid.Column="1" Margin="160 55 10 10" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Click_3">Экспорт ключа</Button>
+        <Button Grid.Column="1" Margin="10 100 10 10" Height="25" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Click_4">Импорт ключа</Button>
+        <Button Grid.Column="1" Margin="160 100 10 10" Height="25" Width="170" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Click_5">Получение закрытого ключа</Button>
+        <TextBlock x:Name="label1" Grid.Column="1" Margin="10 135 10 10" TextWrapping="Wrap"></TextBlock>
+    </Grid>
+</Window>
